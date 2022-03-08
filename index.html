@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+
+
+<input name="email">
+<input name="password" type="password">
+<input type="submit" class="submit">
+
+
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-app-compat.js"></script>
+    <!-- Add additional services you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-messaging-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-functions-compat.js"></script>
+
+    <script>
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCMiGNv9E8bzCTLMeof9AIUd-r1w04xRzI",
+          authDomain: "wddm-c5fb1.firebaseapp.com",
+          projectId: "wddm-c5fb1",
+          storageBucket: "wddm-c5fb1.appspot.com",
+          messagingSenderId: "615021733647",
+          appId: "1:615021733647:web:543c7451599daf49dc807a"
+        };
+      
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+      </script>
+
+    <script src="js/index.js" />
+</body>
+</html>

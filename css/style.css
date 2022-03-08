@@ -1,0 +1,117 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(120deg,#2980b9, #8e44ad);
+    font: 10px/13px 'Lucida Sans',sans-serif;
+    height: 100vh;
+
+}
+.wrap {
+    overflow: hidden;
+    margin: 10px;
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.box {
+    float: left;
+    position: relative;
+    width: 20%;
+    padding-bottom: 20%;
+}
+
+.boxInner {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    overflow: hidden;
+}
+ .boxInner img { width: 100% }
+
+
+@media only screen and (max-width:480px) { 
+    /* Smartphone view: 1 tile */
+    .box {
+        width: 100%;
+        padding-bottom: 100%;
+    }
+}
+@media only screen and (max-width:650px) and (min-width:481px) { 
+    /* Tablet view: 2 tiles */
+    .box {
+        width: 50%;
+        padding-bottom: 50%;
+    }
+}
+@media only screen and (max-width:1050px) and (min-width:651px) { 
+    /* Small desktop / ipad view: 3 tiles */
+    .box {
+        width: 33.3%;
+        padding-bottom: 33.3%;
+    }
+}
+@media only screen and (max-width:1290px) and (min-width:1051px) { 
+    /* Medium desktop: 4 tiles */
+    .box {
+        width: 25%;
+        padding-bottom: 25%;
+    }
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    width: 90%;
+    color: #fff;
+    padding: 10px 0;
+  }
+  
+  h1 {
+    font-size: 3.5rem;
+    font-family: serif;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px 5px #fff;
+  }
+  
+  ul li {
+    list-style-type: none;
+    margin: 0 1rem;
+    display: inline-block;
+  }
+  
+  ul li a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #fff;
+    position: relative;
+  }
+
+  @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300);
+
+body,html{
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: "Source Sans Pro" sans-serif;
+}
+.plus{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1;
+    width: 60px;
+    height: 60px;
+    color: #1a1a1a;
+    background: #ed1c5b;
+    border-radius: 50%;
+    border: none;
+    transition: box-shadow 400ms cubic-bezier(.2,0,.7,1), transform 200ms cubic-bezier(.2,0,.7,1);
+}
+.plus:after{
+    content: "+";
+    font-size: 2.5em;
+    line-height: 1.1em;
+}
