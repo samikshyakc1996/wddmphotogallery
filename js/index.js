@@ -76,6 +76,7 @@ function submitImage(){
         })
         .then(() => {
             console.log("Document successfully written!");
+            location.reload()
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
@@ -87,6 +88,7 @@ function submitImage(){
 
 $(".submitimage").on("click",function(e){
     submitImage()
+
 })
 
 function getImages(){

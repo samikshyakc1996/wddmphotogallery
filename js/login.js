@@ -13,6 +13,7 @@ function signup(email,password){
         })
         .then(() => {
             console.log("Document successfully written!");
+            login(email,password)
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
@@ -62,6 +63,8 @@ $("#signupButton").on("click",function(e){
         $(".signup_link a").addClass("signupbut")
         $("#submitbutton").removeClass("signup");
         $("#submitbutton").addClass("login");
+        $("#submitbutton")[0].value="Login"
+
     }
     else{
         $(".action")[0].innerText="Sign up"
@@ -73,5 +76,7 @@ $("#signupButton").on("click",function(e){
         $(".signup_link a").addClass("loginbut")
         $("#submitbutton").addClass("signup");
         $("#submitbutton").removeClass("login");
+        $("#submitbutton")[0].value="Sign Up"
+
     }
 });
