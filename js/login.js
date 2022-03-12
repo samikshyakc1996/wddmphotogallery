@@ -12,11 +12,10 @@ function signup(email,password){
             email: user.email,
         })
         .then(() => {
-            console.log("Document successfully written!");
             login(email,password)
         })
         .catch((error) => {
-            console.error("Error writing document: ", error);
+            console.error("Error while signing up ", error);
         });
     })
     .catch((error) => {
@@ -42,13 +41,38 @@ function login(email,password){
   });
 }
 
+function validateLogin(name, password) {
+
+	if (name == "" || password == "") {
+		document.getElementById("errormessage").innerHTML = "* Please fill the required fields"
+	}
+}
+function validateSignup(mail, password, confirmpassword) {
+	if (mail == "" || confirmpassword == "" || password == "") {
+		document.getElementById("errormessage").innerHTML = "* Please fill the required fields"
+	}
+	else if (password.length < 6) {
+		document.getElementById("errormessage").innerHTML = "* Your password must include atleast 6 characters"
+	}
+    else if(password !== confirmpassword){
+        document.getElementById("errormessage").innerHTML = "* Password and Confirm Password should match."
+        return false
+    }
+    else
+        return true
+}
 $("#submitbutton").on("click",function(e){
 
     e.preventDefault()
     var email = $("input[name='email']")[0].value
     var password = $("input[name='password']")[0].value
+    var confirmpassword = $("input[name='confirmpass']")[0].value
+    validateLogin(email, password)
     if($("#submitbutton").hasClass("login")) login(email,password)
-    else signup(email,password)
+    else {
+        if (validateSignup(email,password,confirmpassword))
+            signup(email,password)
+    }
 });
 
 $("#signupButton").on("click",function(e){
@@ -57,6 +81,7 @@ $("#signupButton").on("click",function(e){
         $(".action")[0].innerText="Login"
         $(".action").removeClass("signupaction")
         $(".action").addClass("loginaction")
+        $(".confirm")[0].style.display="none"
         $(".signup_link p")[0].innerText = "Not a Member?"
         $(".signup_link a")[0].innerText = "Signup"
         $(".signup_link a").removeClass("loginbut")
@@ -67,9 +92,12 @@ $("#signupButton").on("click",function(e){
 
     }
     else{
-        $(".action")[0].innerText="Sign up"
+        $(".action")[0].innerText="Sign Up"
+        $(".action")[0].style.fontFamily = "Poppins,sans-serif"
         $(".action").addClass("signupaction")
         $(".action").removeClass("loginaction")
+        $(".confirm")[0].style.display="block"
+        $(".pass")[0].innerText=""
         $(".signup_link p")[0].innerText = "Already a member?"
         $(".signup_link a")[0].innerText = "Login"
         $(".signup_link a").removeClass("signupbut")
