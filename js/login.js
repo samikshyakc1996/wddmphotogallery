@@ -78,17 +78,18 @@ $("#submitbutton").on("click",function(e){
 $("#signupButton").on("click",function(e){
     e.preventDefault();
     if($("#signupButton").hasClass("loginbut")){
-        $(".action")[0].innerText="Login"
+        $(".action")[0].innerText="PhotoStash"
+        $(".action")[0].style.fontFamily = "Pacifico,cursive"
         $(".action").removeClass("signupaction")
         $(".action").addClass("loginaction")
         $(".confirm")[0].style.display="none"
         $(".signup_link p")[0].innerText = "Not a Member?"
-        $(".signup_link a")[0].innerText = "Signup"
+        $(".signup_link a")[0].innerText = "Sign Up"
         $(".signup_link a").removeClass("loginbut")
         $(".signup_link a").addClass("signupbut")
         $("#submitbutton").removeClass("signup");
         $("#submitbutton").addClass("login");
-        $("#submitbutton")[0].value="Login"
+        $("#submitbutton")[0].value="Log In"
 
     }
     else{
@@ -99,7 +100,7 @@ $("#signupButton").on("click",function(e){
         $(".confirm")[0].style.display="block"
         $(".pass")[0].innerText=""
         $(".signup_link p")[0].innerText = "Already a member?"
-        $(".signup_link a")[0].innerText = "Login"
+        $(".signup_link a")[0].innerText = "Log In"
         $(".signup_link a").removeClass("signupbut")
         $(".signup_link a").addClass("loginbut")
         $("#submitbutton").addClass("signup");
