@@ -2,6 +2,14 @@ var  db = firebase.firestore(app);
 var storage = firebase.storage(app);
 function signup(email,password){
     console.log("attempt to signup")
+    if(!validateEmail(email)){
+        alert("Please enter valid email")
+        return
+    }
+    if(password.length< 6 ){
+        alert("Password length is too short")
+        return
+    }
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
@@ -26,6 +34,15 @@ function signup(email,password){
         // ..
     });
 }
+
+const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
 function login(email,password){
     console.log("attempt to login")
     firebase.auth().signInWithEmailAndPassword(email, password)

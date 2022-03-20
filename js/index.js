@@ -30,7 +30,7 @@ firebase.auth().onAuthStateChanged((user) => {
 function submitImage(){
     var file=document.getElementById("files").files[0];
     var storageref=storage.ref();
-    var name=document.getElementById("fileName").value
+    var name=document.getElementById("fileName").value ? document.getElementById("fileName").value : file.name.replace(/\.[^/.]+$/, "")
     var uploadTask=storageref.child("images").child(name).put(file);
     // Listen for state changes, errors, and completion of the upload.
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -104,7 +104,7 @@ function getImages(){
 }
 
 function createImageList(url, name){
-    var x='<div class="box"><div class="boxInner"><img src="'+url+'"/><div class="titleBox">'+name+'</div></div></div>';
+    var x='<div class="box"><div class="boxInner"><img src="'+url+'"/><div class="titleBox"><b>'+name+'</b></div></div></div>';
     $(".wrap").append(x)
 }
 function logout(){
