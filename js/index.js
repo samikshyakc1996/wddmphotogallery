@@ -1,13 +1,6 @@
 
 $(document).ready(function(){
-    // $(".signin_link").dis
 
-    // if(localStorage.getItem("uid"))
-    //     getImages()
-    // else{
-    //     window.location.href = '/login.html'; 
-
-    // }
 })
 var uid;
 firebase.auth().onAuthStateChanged((user) => {
