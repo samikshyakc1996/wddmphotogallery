@@ -1,55 +1,65 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Login | PhotoStash</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/login.css" />
   </head>
   <body>
     <div class="center">
       <h1 class="action loginaction">Login</h1>
       <form method="post">
         <div class="txt_field">
-          <input type="text" name="email" required>
+          <input type="text" name="email" required />
           <span></span>
           <label>Email</label>
         </div>
         <div class="txt_field">
-          <input type="password" name="password" required>
+          <input type="password" name="password" required />
           <span></span>
           <label>Password</label>
         </div>
+
+        <p class="error-message" id="errorMessage">Error message</p>
+        <p class="error-messageSI" id="errorMessageSI">Error message signIn</p>
+
         <div class="pass">Forgot Password?</div>
-        <input type="submit" value="Login" id="submitbutton" class="login">
+        <input type="submit" value="Login" id="submitbutton" class="login" />
         <div class="signup_link">
-          <p>Not a member?</p> <a href="javascript: void(0)" id="signupButton" class="signupbut">Signup</a>
+          <p>Not a member?</p>
+          <a href="javascript: void(0)" id="signupButton" class="signupbut"
+            >Signup</a
+          >
         </div>
       </form>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
     <!-- Firebase App is always required and must be first -->
-        <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-app-compat.js"></script>
-        <!-- Add additional services you want to use -->
-        <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-auth-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-storage-compat.js"></script>
-    
-        <script>
-    
-            const firebaseConfig = {
-              apiKey: "AIzaSyCMiGNv9E8bzCTLMeof9AIUd-r1w04xRzI",
-              authDomain: "wddm-c5fb1.firebaseapp.com",
-              projectId: "wddm-c5fb1",
-              storageBucket: "wddm-c5fb1.appspot.com",
-              messagingSenderId: "615021733647",
-              appId: "1:615021733647:web:543c7451599daf49dc807a"
-            };
-          
-            // Initialize Firebase
-            const app = firebase.initializeApp(firebaseConfig);
-          </script>
-    
-        <script src="js/login.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-app-compat.js"></script>
+    <!-- Add additional services you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-storage-compat.js"></script>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyCMiGNv9E8bzCTLMeof9AIUd-r1w04xRzI",
+        authDomain: "wddm-c5fb1.firebaseapp.com",
+        projectId: "wddm-c5fb1",
+        storageBucket: "wddm-c5fb1.appspot.com",
+        messagingSenderId: "615021733647",
+        appId: "1:615021733647:web:543c7451599daf49dc807a",
+      };
+
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script src="js/login.js"></script>
   </body>
 </html>
