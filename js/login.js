@@ -43,7 +43,7 @@ function login(email, password) {
       // Signed in
       var user = userCredential.user;
       localStorage.setItem("uid", user.uid);
-      window.location.href = "/gallery.html";
+      window.location.href = "./gallery.html";
       // ...
     })
     .catch((error) => {
