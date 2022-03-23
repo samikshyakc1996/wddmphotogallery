@@ -8,14 +8,12 @@ $(document).ready(function(){
     //     window.location.href = '/login.html'; 
 
     // }
-})
-var uid;
+});
+
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      var uid = user.uid;
-      getImages()
+   
+      getImages();
       // ...
     } else {
       // User is signed out
@@ -30,7 +28,7 @@ firebase.auth().onAuthStateChanged((user) => {
 function submitImage(){
     var file=document.getElementById("files").files[0];
     var storageref=storage.ref();
-    var name=document.getElementById("fileName").value
+    var name=document.getElementById("fileName").value;
     var uploadTask=storageref.child("images").child(name).put(file);
     // Listen for state changes, errors, and completion of the upload.
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -69,14 +67,14 @@ function submitImage(){
         // Upload completed successfully, now we can get the download URL
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
         console.log('File available at', downloadURL);
-        var userid = firebase.auth().currentUser.uid
+        var userid = firebase.auth().currentUser.uid;
         db.collection("users").doc(userid).collection("images").doc().set({
             imageName: name,
             imageUrl: downloadURL
         })
         .then(() => {
             console.log("Document successfully written!");
-            location.reload()
+            location.reload();
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
@@ -87,36 +85,56 @@ function submitImage(){
 }
 
 $(".submitimage").on("click",function(e){
-    submitImage()
+    submitImage();
 
-})
+});
 
 function getImages(){
-    var uid =firebase.auth().currentUser.uid
+    var uid =firebase.auth().currentUser.uid;
     var userRef = db.collection("users").doc(uid);
+    var index = 0;
     userRef.collection("images").get()
     .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-            console.log(doc.id, " => ", doc.data());
-            createImageList(doc.data().imageUrl,doc.data().imageName);
+            index++;
+            console.log(index,doc.id, " => ", doc.data());
+            createImageList(doc.data().imageUrl,doc.data().imageName, index);
         });
     });
 }
 
-function createImageList(url, name){
-    var x='<div class="box"><div class="boxInner"><img src="'+url+'"/><div class="titleBox">'+name+'</div></div></div>';
-    $(".wrap").append(x)
+function createImageList(url, name, index){   
+    var x='<div class="box"><div class="boxInner"><img src="'+url+'" id="img'+index+'"/><div class="titleBox">'+name+'</div></div></div>';
+    $(".wrap").append(x);
+    $("#img"+index).on("click",function(e){
+        enlargeImg(url,name);
+    });
 }
+var modal = document.getElementById("myModal1");
+var modalImg = document.getElementById("img001");
+var captionText = document.getElementById("captiontext");
+function enlargeImg(url,name){ 
+    console.log("------+++++--------"+url);
+    modal.style.display = "block";
+    modalImg.src = url;
+    captionText.innerHTML = name;  
+}
+
+var span = document.getElementsByClassName("closebut")[0];
+span.onclick = function() {
+  modal.style.display = "none";
+};
+
 function logout(){
     firebase.auth().signOut().then(() => {
         // Sign-out successful.
 
     }).catch((error) => {
         // An error happened.
-        console.log(error)
+        console.log(error);
       });
 }
 $(".logout").on("click", function(e){
-    e.preventDefault()
-    logout()
-})
+    e.preventDefault();
+    logout();
+});
