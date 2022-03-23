@@ -31,7 +31,6 @@ function submitImage() {
     (snapshot) => {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log("Upload is " + progress + "% done");
       switch (snapshot.state) {
         case firebase.storage.TaskState.PAUSED: // or 'paused'
           console.log("Upload is paused");
@@ -62,7 +61,6 @@ function submitImage() {
     () => {
       // Upload completed successfully, now we can get the download URL
       uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-        console.log("File available at", downloadURL);
         var userid = firebase.auth().currentUser.uid;
         db.collection("users")
           .doc(userid)
@@ -74,7 +72,6 @@ function submitImage() {
             id,
           })
           .then(() => {
-            console.log("Document successfully written!");
             location.reload();
           })
           .catch((error) => {
@@ -88,15 +85,16 @@ function submitImage() {
 $(".submitimage").on("click", function (e) {
   submitImage();
 });
-
-function getImages() {  
+function getImages() {
   var uid = firebase.auth().currentUser.uid;
-  var user=firebase.auth().currentUser;
+  var user = firebase.auth().currentUser;
   if (user !== null) {
     user.providerData.forEach((profile) => {
-        
-            $(".displayName")[0].innerText = "Hi!"; 
-        
+      if (profile.displayName != null) {
+        $(".displayName")[0].innerText = "Hi " + profile.displayName + "!";
+      } else {
+        $(".displayName")[0].innerText = "Hi!";
+      }
     });
   }
   var userRef = db.collection("users").doc(uid);
@@ -107,7 +105,6 @@ function getImages() {
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         index++;
-        console.log(index, doc.id, " => ", doc.data());
         createImageList(doc.data().imageUrl, doc.data().imageName, index);
       });
     });
@@ -125,7 +122,9 @@ function createImageList(url, name, index) {
   var x =
     '<div class="box"><div class="boxInner"><div class="titleBox">' +
     name +
-    '</div><button class="deleteBtn" id="deleteBtn'+index+'">Delete</button><img src="' +
+    '</div><button class="deleteBtn" id="deleteBtn' +
+    index +
+    '">Delete</button><img src="' +
     url +
     '" id="img' +
     index +
@@ -141,31 +140,24 @@ function createImageList(url, name, index) {
   });
 }
 
-function deletePicture(url){
-        var uid = firebase.auth().currentUser.uid;
-        console.log("uid: is a userid", uid);
-        var userRef = db.collection("users").doc(uid);
-        console.log("userref", userRef);
-        let pictureRef = storage.refFromURL(url);
-  
-        console.log("pictureRef: ", pictureRef);
-        console.log("pictureRef.name", pictureRef.name);
-        pictureRef
-          .delete()
-          .then(() => {
-            console.log("deleted");
-            db.collection("users")
-              .doc(uid)
-              .collection("images")
-              .doc(pictureRef.name.split(".").shift())
-              .delete()
-              .then(() => {
-                console.log("document deleted successfully from db");
-                location.reload();
-              })
-              .catch((err) => console.log(err));
-          })
-          .catch(() => console.log("error deleting"));
+function deletePicture(url) {
+  var uid = firebase.auth().currentUser.uid;
+  var userRef = db.collection("users").doc(uid);
+  let pictureRef = storage.refFromURL(url);
+  pictureRef
+    .delete()
+    .then(() => {
+      db.collection("users")
+        .doc(uid)
+        .collection("images")
+        .doc(pictureRef.name.split(".").shift())
+        .delete()
+        .then(() => {
+          location.reload();
+        })
+        .catch((err) => console.log(err));
+    })
+    .catch(() => console.log("error deleting"));
 }
 
 var span = document.getElementsByClassName("closebut")[0];
