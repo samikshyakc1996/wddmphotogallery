@@ -18,13 +18,11 @@ body {
     color: transparent;
 }
 .wrap {
-    
     overflow: hidden;
     max-width: 1500px;
     margin: 2rem 4rem;
     padding: 0.8rem 0.8rem;
     color:aliceblue;
-    text-align: center;
 }
 .box {
     float: left;
@@ -40,22 +38,25 @@ body {
     top: 10px;
     bottom: 10px;
     overflow: hidden;
+    width: 90%;        
 }
  .boxInner img { 
-     
-    height: 200px;
+  max-width: 100%;
+  max-height: 100%;
+  display: block; 
     }
 
 button.deleteBtn:hover {
-  background-color: rgba(112, 112, 112, 0.349);
+  background-color: rgba(224, 230, 253, 0.76);
   border: 0px;
 }
 button.deleteBtn {
   cursor: pointer;
-  top: 0;
+  top: 1;
   right: 0;
   position: absolute;
   padding: 4px 8px;
+  margin-bottom: 1rem;
   border-radius: 10px;
   background-color: #ffffff4d;
   border: 0px;
@@ -109,7 +110,7 @@ button.deleteBtn {
     display: inline-block;
   }
   
-  ul li a {
+  ul li a,.displayName {
     text-decoration: none;
     font-family: 'Source Serif 4', sans-serif;
     font-size: 20px;
@@ -210,9 +211,6 @@ body,html{
       width: 100%;
     }
   }
-    font-size: 2.5em;
-    line-height: 1.1em;
-}
 .titleBox{
     color: white;
 }

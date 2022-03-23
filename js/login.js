@@ -1,23 +1,21 @@
 var  db = firebase.firestore(app);
 var storage = firebase.storage(app);
-function signup(email,password){
+function signup(email,name,password){
     console.log("attempt to signup")
-    if(!validateEmail(email)){
-        alert("Please enter valid email")
-        return
-    }
-    if(password.length< 6 ){
-        alert("Password length is too short")
-        return
-    }
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
         // Signed in 
         var user = userCredential.user;
-        console.log(user);
+        user.updateProfile({
+            displayName: name,
+          }).then(() => {
+            console.log("name update sucessfull");
+          }).catch((error) => {
+            console.error("Error while name updating and signing up ", error);
+          }); 
         db.collection("users").doc(user.uid).set({
-            email: user.email,
+            email: user.email,   
         })
         .then(() => {
             login(email,password)
@@ -33,15 +31,6 @@ function signup(email,password){
         // ..
     });
 }
-
-const validateEmail = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
-
 function login(email,password){
     console.log("attempt to login")
     firebase.auth().signInWithEmailAndPassword(email, password)
@@ -49,7 +38,7 @@ function login(email,password){
     // Signed in
     var user = userCredential.user;
     localStorage.setItem('uid', user.uid);
-    window.location.href = './gallery.html'; 
+    window.location.href = '/gallery.html'; 
     // ...
   })
   .catch((error) => {
@@ -82,13 +71,14 @@ $("#submitbutton").on("click",function(e){
 
     e.preventDefault()
     var email = $("input[name='email']")[0].value
+    var name = $("input[name='name']")[0].value
     var password = $("input[name='password']")[0].value
     var confirmpassword = $("input[name='confirmpass']")[0].value
     validateLogin(email, password)
     if($("#submitbutton").hasClass("login")) login(email,password)
     else {
         if (validateSignup(email,password,confirmpassword))
-            signup(email,password)
+            signup(email,name,password)
     }
 });
 
@@ -100,6 +90,7 @@ $("#signupButton").on("click",function(e){
         $(".action").removeClass("signupaction")
         $(".action").addClass("loginaction")
         $(".confirm")[0].style.display="none"
+        $(".name")[0].style.display="none"
         $(".signup_link p")[0].innerText = "Not a Member?"
         $(".signup_link a")[0].innerText = "Sign Up"
         $(".signup_link a").removeClass("loginbut")
@@ -115,6 +106,7 @@ $("#signupButton").on("click",function(e){
         $(".action").addClass("signupaction")
         $(".action").removeClass("loginaction")
         $(".confirm")[0].style.display="block"
+        $(".name")[0].style.display="block"
         $(".pass")[0].innerText=""
         $(".signup_link p")[0].innerText = "Already a member?"
         $(".signup_link a")[0].innerText = "Log In"
@@ -126,3 +118,4 @@ $("#signupButton").on("click",function(e){
 
     }
 });
+

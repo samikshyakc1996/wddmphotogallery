@@ -2,6 +2,7 @@ var uid;
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     getImages();
+
     // ...
   } else {
     // User is signed out
@@ -88,8 +89,15 @@ $(".submitimage").on("click", function (e) {
   submitImage();
 });
 
-function getImages() {
+function getImages() {  
   var uid = firebase.auth().currentUser.uid;
+  var user=firebase.auth().currentUser;
+  if (user !== null) {
+    user.providerData.forEach((profile) => {
+      console.log("  Name: " + profile.displayName);
+      $(".displayName")[0].innerText = "Hi "+profile.displayName+"!";
+    });
+  }
   var userRef = db.collection("users").doc(uid);
   var index = 0;
   userRef
@@ -104,21 +112,6 @@ function getImages() {
     });
 }
 
-function createImageList(url, name, index) {
-  var x =
-    '<div class="box"><div class="boxInner"><div class="titleBox">' +
-    name +
-    '</div><img src="' +
-    url +
-    '" id="img' +
-    index +
-    '"/></div></div>';
-  $(".wrap").append(x);
-  $(".wrap")[0].style.background = "linear-gradient(120deg,#2980b9, #8e44ad)";
-  $("#img" + index).on("click", function (e) {
-    enlargeImg(url, name);
-  });
-}
 var modal = document.getElementById("myModal1");
 var modalImg = document.getElementById("img001");
 var captionText = document.getElementById("captiontext");
@@ -127,46 +120,51 @@ function enlargeImg(url, name) {
   modalImg.src = url;
   captionText.innerHTML = name;
 }
-function createImageList(url, name) {
+function createImageList(url, name, index) {
   var x =
-    '<div class="box"><div class="boxInner"><img src="' +
-    url +
-    '"/><button class="deleteBtn">Delete</button><div class="titleBox"><b>' +
+    '<div class="box"><div class="boxInner"><div class="titleBox">' +
     name +
-    "</b></div></div></div>";
+    '</div><button class="deleteBtn" id="deleteBtn'+index+'">Delete</button><img src="' +
+    url +
+    '" id="img' +
+    index +
+    '"/>' +
+    "</div></div>";
   $(".wrap").append(x);
-  const deleteBtn = document.querySelectorAll(".deleteBtn");
-  // console.log("deleteBtn:", deleteBtn);
-
-  Array.from(deleteBtn).forEach((item) => {
-    // console.log("item", item);
-    item.addEventListener("click", function () {
-      var uid = firebase.auth().currentUser.uid;
-      console.log("uid: is a userid", uid);
-      var userRef = db.collection("users").doc(uid);
-      console.log("userref", userRef);
-      let pictureRef = storage.refFromURL(url);
-
-      console.log("pictureRef: ", pictureRef);
-      console.log("pictureRef.name", pictureRef.name);
-      pictureRef
-        .delete()
-        .then(() => {
-          console.log("deleted");
-          db.collection("users")
-            .doc(uid)
-            .collection("images")
-            .doc(pictureRef.name.split(".").shift())
-            .delete()
-            .then(() => {
-              console.log("document deleted successfully from db");
-              location.reload();
-            })
-            .catch((err) => console.log(err));
-        })
-        .catch(() => console.log("error deleting"));
-    });
+  $(".wrap")[0].style.background = "linear-gradient(120deg,#2980b9, #8e44ad)";
+  $("#img" + index).on("click", function (e) {
+    enlargeImg(url, name);
   });
+  $("#deleteBtn" + index).on("click", function (e) {
+    deletePicture(url);
+  });
+}
+
+function deletePicture(url){
+        var uid = firebase.auth().currentUser.uid;
+        console.log("uid: is a userid", uid);
+        var userRef = db.collection("users").doc(uid);
+        console.log("userref", userRef);
+        let pictureRef = storage.refFromURL(url);
+  
+        console.log("pictureRef: ", pictureRef);
+        console.log("pictureRef.name", pictureRef.name);
+        pictureRef
+          .delete()
+          .then(() => {
+            console.log("deleted");
+            db.collection("users")
+              .doc(uid)
+              .collection("images")
+              .doc(pictureRef.name.split(".").shift())
+              .delete()
+              .then(() => {
+                console.log("document deleted successfully from db");
+                location.reload();
+              })
+              .catch((err) => console.log(err));
+          })
+          .catch(() => console.log("error deleting"));
 }
 
 var span = document.getElementsByClassName("closebut")[0];
