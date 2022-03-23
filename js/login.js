@@ -1,5 +1,6 @@
 var db = firebase.firestore(app);
 var storage = firebase.storage(app);
+var t;
 function signup(email, name, password) {
   firebase
     .auth()
@@ -30,6 +31,9 @@ function signup(email, name, password) {
         });
     })
     .catch((error) => {
+      console.log(error)
+      document.getElementById("errormessage").innerHTML = error.message
+      t=error
       var errorCode = error.code;
       var errorMessage = error.message;
       // ..
