@@ -123,7 +123,6 @@ var modal = document.getElementById("myModal1");
 var modalImg = document.getElementById("img001");
 var captionText = document.getElementById("captiontext");
 function enlargeImg(url, name) {
-  console.log("------+++++--------" + url);
   modal.style.display = "block";
   modalImg.src = url;
   captionText.innerHTML = name;
