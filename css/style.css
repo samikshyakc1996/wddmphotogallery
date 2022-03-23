@@ -18,9 +18,9 @@ body {
     color: transparent;
 }
 .wrap {
-    background: linear-gradient(120deg,#2980b9, #8e44ad);
+    
     overflow: hidden;
-    max-width: 3000px;
+    max-width: 1500px;
     margin: 2rem 4rem;
     padding: 0.8rem 0.8rem;
     color:aliceblue;

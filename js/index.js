@@ -104,8 +104,9 @@ function getImages(){
 }
 
 function createImageList(url, name, index){   
-    var x='<div class="box"><div class="boxInner"><img src="'+url+'" id="img'+index+'"/><div class="titleBox">'+name+'</div></div></div>';
+    var x='<div class="box"><div class="boxInner"><div class="titleBox">'+name+'</div><img src="'+url+'" id="img'+index+'"/></div></div>';
     $(".wrap").append(x);
+    $(".wrap")[0].style.background = "linear-gradient(120deg,#2980b9, #8e44ad)";
     $("#img"+index).on("click",function(e){
         enlargeImg(url,name);
     });
