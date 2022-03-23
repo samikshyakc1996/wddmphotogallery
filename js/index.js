@@ -1,15 +1,6 @@
 
-$(document).ready(function(){
-    // $(".signin_link").dis
 
-    // if(localStorage.getItem("uid"))
-    //     getImages()
-    // else{
-    //     window.location.href = '/login.html'; 
-
-    // }
-});
-
+var uid;
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
    
@@ -17,7 +8,7 @@ firebase.auth().onAuthStateChanged((user) => {
       // ...
     } else {
       // User is signed out
-      window.location.href = '/login.html'; 
+      window.location.href = './login.html'; 
 
       // ...
     }
@@ -28,7 +19,8 @@ firebase.auth().onAuthStateChanged((user) => {
 function submitImage(){
     var file=document.getElementById("files").files[0];
     var storageref=storage.ref();
-    var name=document.getElementById("fileName").value;
+
+    var name=document.getElementById("fileName").value ? document.getElementById("fileName").value : file.name.replace(/\.[^/.]+$/, "")
     var uploadTask=storageref.child("images").child(name).put(file);
     // Listen for state changes, errors, and completion of the upload.
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -119,6 +111,11 @@ function enlargeImg(url,name){
     modal.style.display = "block";
     modalImg.src = url;
     captionText.innerHTML = name;  
+}
+function createImageList(url, name){
+    var x='<div class="box"><div class="boxInner"><img src="'+url+'"/><div class="titleBox"><b>'+name+'</b></div></div></div>';
+    $(".wrap").append(x)
+
 }
 
 var span = document.getElementsByClassName("closebut")[0];
