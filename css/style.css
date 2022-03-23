@@ -214,3 +214,11 @@ body,html{
 .titleBox{
     color: white;
 }
+.aboutText{
+  margin: 3rem 13rem;
+  padding: 4rem 6rem;
+  text-align: center;
+  color: aliceblue;
+  background: linear-gradient(120deg,#2980b9, #8e44ad);
+  font-size: 22px;
+}

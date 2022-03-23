@@ -131,7 +131,10 @@ function createImageList(url, name, index) {
     '"/>' +
     "</div></div>";
   $(".wrap").append(x);
-  $(".wrap")[0].style.background = "linear-gradient(120deg,#2980b9, #8e44ad)";
+  var wrap = $(".wrap")[0];
+  if (wrap != null || undefined) {
+    wrap.style.background = "linear-gradient(120deg,#2980b9, #8e44ad)";
+  }
   $("#img" + index).on("click", function (e) {
     enlargeImg(url, name);
   });
@@ -159,11 +162,15 @@ function deletePicture(url) {
     })
     .catch(() => console.log("error deleting"));
 }
-
-var span = document.getElementsByClassName("closebut")[0];
-span.onclick = function () {
-  modal.style.display = "none";
-};
+closeCheck = document.getElementsByClassName("closebut");
+if (closeCheck) {
+  var span = closeCheck[0];
+  if (span != null || undefined) {
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+  }
+}
 
 function logout() {
   firebase
