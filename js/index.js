@@ -94,12 +94,9 @@ function getImages() {
   var user=firebase.auth().currentUser;
   if (user !== null) {
     user.providerData.forEach((profile) => {
-        if(profile.displayName!=null){
-            $(".displayName")[0].innerText = "Hi "+profile.displayName+"!";
-        }
-        else{
+        
             $(".displayName")[0].innerText = "Hi!"; 
-        }
+        
     });
   }
   var userRef = db.collection("users").doc(uid);
