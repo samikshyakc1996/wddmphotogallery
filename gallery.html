@@ -9,19 +9,30 @@
   </head>
   <body>
     <div class="navbar">
-        <h1>Photo Stash</h1>
+        <h1 class="logo">PhotoStash</h1>
         <ul>
           <li> <a href="#">HOME</a></li>
           <li> <a href="#">ABOUT</a> </li>
           <li> <a href="" class="logout">Logout</a></li>
         </ul>
       </div>
-    <div class="wrap">
+      <div class="heading">
+       <h2> Your Gallery </h2>
+      </div>
+      <div class="wrap">
+      </div>
 
-       </div>
-       <button data-toggle="modal" data-target="#modalLoginForm" class="plus"></button>
+      <div id="myModal1" class="modal1">
+        <span class="closebut">&times;</span>
+        <img class="modal-content-img" id="img001">
+        <div id="captiontext"></div>
+      </div>
 
-       <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+
+
+      <button data-toggle="modal" data-target="#modalLoginForm" class="plus"></button>
+
+      <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -56,9 +67,8 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!-- Firebase App is always required and must be first -->
         <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-app-compat.js"></script>
-        <!-- Add additional services you want to use -->
+        <!-- Adding additional services-->
         <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-auth-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-storage-compat.js"></script>

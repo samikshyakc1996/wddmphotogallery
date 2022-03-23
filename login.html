@@ -7,8 +7,9 @@
   </head>
   <body>
     <div class="center">
-      <h1 class="action loginaction">Login</h1>
+      <h1 class="action loginaction">PhotoStash</h1>
       <form method="post">
+        <div id="errormessage"></div>
         <div class="txt_field">
           <input type="text" name="email" required>
           <span></span>
@@ -19,18 +20,21 @@
           <span></span>
           <label>Password</label>
         </div>
+        <div class="txt_field confirm">
+          <input type="password" name="confirmpass" required>
+          <span></span>
+          <label>Confirm Password</label>
+        </div>
+        <input type="submit" value="Log In" id="submitbutton" class="login">
         <div class="pass">Forgot Password?</div>
-        <input type="submit" value="Login" id="submitbutton" class="login">
         <div class="signup_link">
-          <p>Not a member?</p> <a href="javascript: void(0)" id="signupButton" class="signupbut">Signup</a>
+          <p>Not a member?</p> <a href="javascript: void(0)" id="signupButton" class="signupbut">Sign Up</a>
         </div>
       </form>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!-- Firebase App is always required and must be first -->
         <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-app-compat.js"></script>
-        <!-- Add additional services you want to use -->
         <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-auth-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-storage-compat.js"></script>
